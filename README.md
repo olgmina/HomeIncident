@@ -7,17 +7,19 @@
 
 
 
-Other things to include:
+**Technology stack**:
 
-  - **Technology stack**: язык программирвоания Java, СУБД - , 
+  - язык программирвоания Java, СУБД - , 
   - Серверная часть на Spring
   - Клиенты - desktop jabafx
-  - **Status**:  Alpha, Beta, 1.1, etc. It's OK to write a sentence, too. The goal is to let interested people know where this project is at. This is also a good place to link to the [CHANGELOG](CHANGELOG.md).
-  - **Links to production or demo instances**
+
+**Status**:  Alpha, Beta, 1.1, etc. It's OK to write a sentence, too. The goal is to let interested people know where this project is at. This is also a good place to link to the [CHANGELOG](CHANGELOG.md).
+
+**Links to production or demo instances**
   - Здесь ссылка на прототип.
 
 
-**Screenshot**: скрин экрана добавить
+**Screenshot**: 
 
 ![](https://github.com/olgmina/HomeIncident/blob/e13dd8a99c4b09ae414eafff6859198a8c66d944/%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D1%82%D0%B8%D0%BF%D0%B0.png)
 
