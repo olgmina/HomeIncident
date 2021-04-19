@@ -19,7 +19,7 @@ Other things to include:
 
 **Screenshot**: скрин экрана добавить
 
-![](https://raw.githubusercontent.com/cfpb/open-source-project-template/main/screenshot.png)
+![](скриншот прототипа.png)
 
 
 ## Dependencies
