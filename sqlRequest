@@ -1,0 +1,121 @@
+/* Создание таблиц и связей в MySQL */
+
+/* вид дейятельности компании */
+CREATE TABLE TIPE_ACTIVITY(
+    ID_TIPE_ACTIV	   BIGINT NOT NULL AUTO_INCREMENT,	 /*айд вида дейятельности */
+    ACTIV_NAME		   VARCHAR(100),					           /*имя вида дейятельности */   
+    PRIMARY KEY(ID_TIPE_ACTIV)
+);
+
+/*житель студ городка- студент */
+CREATE TABLE CITIZEN(
+    ID_CITIZEN 		   BIGINT 		NOT NULL AUTO_INCREMENT, /*айди */
+    FIRST_NAME_CITIZEN VARCHAR(100), /*имя */
+    LAST_NAME_CITIZEN  VARCHAR(100),  /*фамилия */
+    PATRONYMIC_CITIZEN VARCHAR(100), /*отчество */
+    STUDENT_ID_NUMBER  BIGINT, /*номер студ билета */
+    DATE_BITTH 		   DATE, /*дата рождения */
+    PRIMARY KEY(ID_CITIZEN)
+);
+
+/*компания подрядчик */
+CREATE TABLE CONTRACTOR_COMPANY(
+    ID_COMPANY	       BIGINT 		NOT NULL AUTO_INCREMENT,	        /*айди */
+    COMPANY_NAME       VARCHAR(100),							                  /*имя */
+    DESCRIBTION        VARCHAR(250),							                  /*описание */
+    TERM_CONTRACT	   DATE,									                        /*дата окончания контракта */
+    ID_TIPE_ACTIV	   BIGINT,								                        /*айд вида дейятельности */
+    TELEPHONE_COMP	   VARCHAR(20),								                  /*телефон*/
+    PRIMARY KEY(ID_COMPANY),
+    FOREIGN KEY(ID_TIPE_ACTIV) REFERENCES TIPE_ACTIVITY(ID_TIPE_ACTIV)
+);
+
+/*исполнитель подрядчик */
+CREATE TABLE EXETUTOR_COMP(
+    ID_EXETUTOR_COMP        BIGINT 		NOT NULL AUTO_INCREMENT,	/*айди */
+    ID_ID_COMPANY_COMPANY   BIGINT,									/*айди компании */
+    
+    FIRST_NAME_EXETUTOR_COMP VARCHAR(100),								/*имя */
+    LAST_NAME_EXETUTOR_COMP  VARCHAR(100),								/*фамилия */
+    PATRONYMIC_EXETUTOR_COMP VARCHAR(100),								/*отчество */
+    
+    COMPANY_POST       VARCHAR(100),							/*должность */
+    TELEPHONE_COMP	   VARCHAR(20),								/*телефон*/
+    
+    PRIMARY KEY(ID_EXETUTOR_COMP),
+    FOREIGN KEY(ID_ID_COMPANY_COMPANY) REFERENCES CONTRACTOR_COMPANY(ID_COMPANY)
+);
+
+/*локация */
+CREATE TABLE LOCATION_DORMITORY(
+    ID_LOCATION_DORMITORYP BIGINT NOT NULL AUTO_INCREMENT,	/*айди */
+    
+    STREET_LOC 			VARCHAR(100),	/*улица */
+    NUM_HOUSE_LOC 		VARCHAR(100),	/*номер дома */
+    NUM_FLOOR_LOC 		VARCHAR(100),	/*этаж */
+    NUM_ROOM_LOC        VARCHAR(100),	/*номер комнаты */
+    DESCRIBTION_LOC	    VARCHAR(150),	/*описание*/
+
+    PRIMARY KEY(ID_LOCATION_DORMITORYP)
+);  
+
+/*админ */
+CREATE TABLE ADMIN_DATA(
+    ID_ADMIN_DATA BIGINT NOT NULL AUTO_INCREMENT,	/*айди */
+ 
+    FIRST_NAME_ADMIN_DATA 			VARCHAR(100),	/*имя админа */
+    LAST_NAME_ADMIN_DATA 		VARCHAR(100),	/*фамилия админа */
+    LOGIN_ADMIN_DATA 		VARCHAR(100),	/*логин админа */
+    PRIMARY KEY(ID_ADMIN_DATA)
+); 
+  
+CREATE TABLE TYPE_APPLICATION (
+     ID_TYPE_APPLICATION        BIGINT 		NOT NULL AUTO_INCREMENT,	/*айди */
+     NAME_TYPE_APPLICATION      VARCHAR(150),	/*название типа  заявки */
+     PRIMARY KEY(ID_TYPE_APPLICATION)
+);    
+  
+CREATE TABLE KIND_APPLICATION (
+     ID_KINDE_APPLICATION        BIGINT 		NOT NULL AUTO_INCREMENT,	/*айди */
+     NAME_KIND_APPLICATION      VARCHAR(150),	/*название вида  заявки */
+     PRIMARY KEY(ID_KINDE_APPLICATION)
+);    
+
+CREATE TABLE STATUS_APPLICATION (
+     ID_STATUS_APPLICATION        BIGINT 		NOT NULL AUTO_INCREMENT,	/*айди */
+     NAME_STATUS_APPLICATION      VARCHAR(150),	/*название статуса  заявки */
+     PRIMARY KEY(ID_STATUS_APPLICATION)
+); 
+
+CREATE TABLE REASON_CLOSING (
+     ID_REASON_CLOSING        BIGINT 		NOT NULL AUTO_INCREMENT,	/*айди */
+     NAME_REASON_CLOSING      VARCHAR(150),	/*название причины закрытия  заявки */
+     PRIMARY KEY(ID_REASON_CLOSING)
+); 
+  
+/*заяка */
+CREATE TABLE APPLICATION(
+    ID_APPLICATION        BIGINT 		NOT NULL AUTO_INCREMENT,	/*айди */
+    
+    ID_APPLICANT   BIGINT,				/*айди ЗАЯВИТЕЛЬ студента */
+    ID_PERFORMER_COMP   BIGINT,			/*айди исполнителя */
+    ID_TYPE_APPLICATION BIGINT, 			/*айди типа */
+    ID_KIND_APPLICATION BIGINT,			    /*айди вида */
+    ID_STATUS 			BIGINT,			    /*айди статуса */
+	ID_LOC 			BIGINT,			    /*айди локации */
+    DESCRIBTION_APPLICATION VARCHAR(250),	/*описание заявки */
+    
+    DATE_START   DATETIME,			/*дата начала */
+    DATE_FINISH  DATETIME,			/*дата окончания */
+    ID_REASON_CLOSING BIGINT,		/*айди причины закрытия заявки */
+    
+    PRIMARY KEY(ID_APPLICATION),
+    FOREIGN KEY(ID_APPLICANT) REFERENCES CITIZEN(ID_CITIZEN),
+    FOREIGN KEY(ID_PERFORMER_COMP) REFERENCES EXETUTOR_COMP(ID_EXETUTOR_COMP),
+    
+    FOREIGN KEY(ID_TYPE_APPLICATION) REFERENCES TYPE_APPLICATION(ID_TYPE_APPLICATION),
+    FOREIGN KEY(ID_KIND_APPLICATION) REFERENCES KIND_APPLICATION(ID_KINDE_APPLICATION),
+    FOREIGN KEY(ID_STATUS) REFERENCES STATUS_APPLICATION(ID_STATUS_APPLICATION),
+    FOREIGN KEY(ID_LOC) REFERENCES LOCATION_DORMITORY(ID_LOCATION_DORMITORYP),
+    FOREIGN KEY(ID_REASON_CLOSING) REFERENCES REASON_CLOSING(ID_REASON_CLOSING)
+);
